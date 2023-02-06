@@ -20,7 +20,8 @@ release_url() {
 }
 
 (
-  cd "${ASDF_INSTALL_PATH:-"$(pwd)"}"
-  curl -sSL "$(release_url)" \
-  | tar xvzf -
+  cd "${ASDF_INSTALL_PATH}"
+  curl -sSL "$(release_url)" | tar xvzf -
+  mkdir bin
+  mv k9s bin
 )
