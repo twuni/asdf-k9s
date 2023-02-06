@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+if [ -z "${ASDF_INSTALL_VERSION:-}" ]; then
+  >&2 cat <<EOF
+Missing install version.
+Are you running this command via asdf?
+Try running 'asdf install k9s <version>'
+EOF
+  exit 1
+fi
+
+release_url() {
+  RELEASE_PLATFORM="$(uname)"
+  RELEASE_ARCH="$(uname -m)"
+  RELEASE_URL="https://github.com/derailed/k9s/releases/download/v${ASDF_INSTALL_VERSION}/k9s_${RELEASE_PLATFORM}_${RELEASE_ARCH}.tar.gz"
+  2>/dev/null curl --fail -sSL -XHEAD "${RELEASE_URL}" || RELEASE_URL="https://github.com/derailed/k9s/releases/download/v${ASDF_INSTALL_VERSION}/k9s_${RELEASE_PLATFORM}_amd64.tar.gz"
+  echo "${RELEASE_URL}"
+}
+
+(
+  cd "${ASDF_INSTALL_PATH:-"$(pwd)"}"
+  curl -sSL "$(release_url)" \
+  | tar xvzf -
+)

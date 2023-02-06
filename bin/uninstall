@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+
+if [ -z "${ASDF_INSTALL_PATH}" ]; then
+  >&2 cat <<EOF
+No installation directory was provided.
+Are you running this command via asdf?
+Try running 'asdf uninstall python <version>'
+EOF
+  exit 1
+fi
+
+rm -fR "${ASDF_INSTALL_PATH}"
