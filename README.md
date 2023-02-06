@@ -5,7 +5,7 @@
 ## Installing
 
 ```sh
-asdf plugin-add k9s https://github.com/twuni/asdf-k9s
+asdf plugin-add k9s https://github.com/twuni/asdf-k9s.git
 ```
 
 Then, manage k9s versions just as you would any other asdf plugin.
