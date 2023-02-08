@@ -5,4 +5,5 @@ set -eu
 curl -sSL 'https://api.github.com/repos/derailed/k9s/releases' \
 | awk '/^    "name": / { print $2; }' \
 | sed -E 's|^"v(.+)",$|\1|g' \
-| sort --version-sort
+| sort --version-sort \
+| xargs
